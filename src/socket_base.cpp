@@ -325,6 +325,11 @@ int zmq::socket_base_t::getsockopt (int option_, void *optval_,
         return 0;
     }
 
+	//  Then, check whether specific socket type overloads the option.
+	int rc = xgetsockopt(option_, optval_, optvallen_);
+	if (rc == 0 || errno != EINVAL)
+		return rc;
+
     return options.getsockopt (option_, optval_, optvallen_);
 }
 
@@ -1019,6 +1024,12 @@ int zmq::socket_base_t::xsetsockopt (int, const void *, size_t)
 {
     errno = EINVAL;
     return -1;
+}
+
+int zmq::socket_base_t::xgetsockopt(int option_, void *optval_, size_t* optvallen_) const
+{
+	errno = EINVAL;
+	return -1;
 }
 
 bool zmq::socket_base_t::xhas_out ()

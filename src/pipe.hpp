@@ -78,6 +78,9 @@ namespace zmq
         void set_identity (const blob_t &identity_);
         blob_t get_identity ();
 
+		void set_ip_address(const std::string &ip_address_);
+		const std::string& get_ip_address() const;
+
         blob_t get_credential () const;
 
         //  Returns true if there is at least one message to read in the pipe.
@@ -199,6 +202,8 @@ namespace zmq
 
         //  Identity of the writer. Used uniquely by the reader side.
         blob_t identity;
+
+		std::string ip_address;
 
         //  Pipe's credential.
         blob_t credential;

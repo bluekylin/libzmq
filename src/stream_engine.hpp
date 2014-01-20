@@ -68,6 +68,8 @@ namespace zmq
         void in_event ();
         void out_event ();
 
+		virtual void get_peer_address(std::string& str);
+
     private:
 
         //  Unplug the engine from the session.

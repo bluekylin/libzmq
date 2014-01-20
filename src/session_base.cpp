@@ -356,6 +356,13 @@ void zmq::session_base_t::process_attach (i_engine *engine_)
 
         //  Ask socket to plug into the remote end of the pipe.
         send_bind (socket, pipes [1]);
+
+		std::string ip_address;
+		engine_->get_peer_address(ip_address);
+		if (!ip_address.empty())
+		{
+			pipes[1]->set_ip_address(ip_address);
+		}
     }
 
     //  Plug in the engine.

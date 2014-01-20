@@ -147,6 +147,11 @@ zmq::stream_engine_t::~stream_engine_t ()
     delete mechanism;
 }
 
+void zmq::stream_engine_t::get_peer_address(std::string& str)
+{
+	str = peer_address;
+}
+
 void zmq::stream_engine_t::plug (io_thread_t *io_thread_,
     session_base_t *session_)
 {

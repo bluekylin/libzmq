@@ -48,6 +48,8 @@ namespace zmq
         virtual void restart_output () = 0;
 
         virtual void zap_msg_available () = 0;
+
+		virtual void get_peer_address(std::string& str) {}
     };
 
 }

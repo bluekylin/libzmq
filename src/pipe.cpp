@@ -110,6 +110,16 @@ zmq::blob_t zmq::pipe_t::get_identity ()
     return identity;
 }
 
+void zmq::pipe_t::set_ip_address(const std::string &ip_address_)
+{
+	ip_address = ip_address_;
+}
+
+const std::string& zmq::pipe_t::get_ip_address() const
+{
+	return ip_address;
+}
+
 zmq::blob_t zmq::pipe_t::get_credential () const
 {
     return credential;

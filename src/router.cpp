@@ -133,6 +133,33 @@ int zmq::router_t::xsetsockopt (int option_, const void *optval_,
     return -1;
 }
 
+int zmq::router_t::xgetsockopt(int option_, void *optval_, size_t* optvallen_) const
+{
+	switch (option_) {
+
+	case ZMQ_ROUTER_GETIPADDRESS:
+		if (*optvallen_ > 0 && *optvallen_ < 256
+			&& *((const unsigned char *)optval_) != 0) {
+			size_t identity_size = *optvallen_;
+			blob_t identity((const unsigned char *)optval_, identity_size);
+			outpipes_t::const_iterator it = outpipes.find(identity);
+			if (it != outpipes.end())
+			{
+				const outpipe_t& pipe = it->second;
+				const std::string& address = pipe.pipe->get_ip_address();
+				memcpy(optval_, address.c_str(), address.length() + 1);
+				*optvallen_ = address.length() + 1;
+			}
+
+			return 0;
+		}
+		break;
+	default:
+		break;
+	}
+	errno = EINVAL;
+	return -1;
+}
 
 void zmq::router_t::xpipe_terminated (pipe_t *pipe_)
 {

@@ -136,6 +136,8 @@ namespace zmq
         //  method.
         virtual int xsetsockopt (int option_, const void *optval_,
             size_t optvallen_);
+		virtual int xgetsockopt(int option_, void *optval_,
+			size_t* optvallen_) const;
 
         //  The default implementation assumes that send is not supported.
         virtual bool xhas_out ();
